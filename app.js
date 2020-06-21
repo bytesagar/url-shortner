@@ -62,6 +62,10 @@ app.get("/:customurl", async (req, res) => {
     }
 })
 
+app.get("*", (req, res) => {
+    res.send(`<h1> 404, Page Not Found</h1>`)
+})
+
 
 
 
