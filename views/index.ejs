@@ -1,0 +1,82 @@
+<div class="col-md-12">
+  <nav class="navbar shadow navbar-expand-lg py-3 fixed-top navbar-dark">
+    <div class="container">
+      <a href="/" class="navbar-brand font-weight-bold" style="color: grey;"
+        >Url Shortner</a
+      >
+    </div>
+  </nav>
+  <br /><br /><br /><br />
+
+  <br /><br />
+  <div class="container">
+    <h1 class="text-center">URL Shortner</h1>
+    <% if (typeof currentUrl != 'undefined' && typeof customUrl !=
+    'undefined'){%>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      This is your Url
+      <p class="text-dark" style="font-weight: bold;">
+        <a href="<%= currentUrl+customUrl %>" target="_blank"
+          ><%= currentUrl+customUrl %>
+        </a>
+      </p>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <% } %>
+  </div>
+  <br /><br />
+
+  <div class="container main">
+    <% if(typeof errors != 'undefined'){%>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <%= errors[0].msg%>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <%}%>
+    <div class="row w-100">
+      <div class="col-md-12">
+        <form action="/" method="POST">
+          <label>Enter your Url</label>
+          <input
+            type="url"
+            placeholder="Long url here"
+            required
+            autocomplete="off"
+            name="mainUrl"
+            class="form-control"
+          />
+          <br />
+          <label>Custom Url</label>
+          <div class="form-group border-0 border-bottom d-flex">
+            <input type="hidden" name="currentUrl" value="<%= currentUrl %>" />
+            <p class="mt-2 pl-2" style="font-weight: bold;">
+              <%= currentUrl %>
+            </p>
+            <input
+              type="text"
+              name="customUrl"
+              class="ml-2 form-control"
+              placeholder="Enter short url custom name"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-4">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
