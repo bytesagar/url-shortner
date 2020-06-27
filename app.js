@@ -3,6 +3,7 @@ const expresslayouts = require("express-ejs-layouts")
 const colors = require("colors")
 const Short_Url = require("./Model/shotUrl")
 const connectToDb = require("./config/db_config")
+const rateLimit = require("express-rate-limit");
 const app = express()
 const dotenv = require("dotenv").config()
 
@@ -19,11 +20,20 @@ app.set("view engine", "ejs")
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
 
+//rate limit middleware
+const limiter = rateLimit({
+    windowMs: 20 * 60 * 1000, // 20 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+});
+
+app.use(limiter)
+
 //global variable middleware
 app.use((req, res, next) => {
     res.locals.currentUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`
     next()
 })
+
 app.get("/", (req, res) => {
     res.render("index")
 })
